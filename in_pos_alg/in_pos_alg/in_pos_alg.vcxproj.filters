@@ -29,5 +29,8 @@
     <ClInclude Include="file_operation.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="datawritein.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

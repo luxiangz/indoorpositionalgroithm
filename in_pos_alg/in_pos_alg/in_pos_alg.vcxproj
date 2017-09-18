@@ -72,6 +72,7 @@
     <Text Include="data.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="datawritein.h" />
     <ClInclude Include="file_operation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
