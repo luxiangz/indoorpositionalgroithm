@@ -21,6 +21,9 @@
     <ClCompile Include="file_operation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="datawritein.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />

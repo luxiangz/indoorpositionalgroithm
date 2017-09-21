@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="datawritein.cpp" />
     <ClCompile Include="file_operation.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
