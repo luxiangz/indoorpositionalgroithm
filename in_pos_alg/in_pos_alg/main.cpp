@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <string>
+#include <cmath>
 
 #include "stdlib.h"
 #include "file_operation.h"
@@ -63,8 +64,11 @@ float xtemp[pointnum] = { 000.0f, 000.0f, 000.0f, 000.0f, 491.5f, 491.5f, 491.5f
 float ytemp[pointnum] = { 000.0f, 483.7f, 483.7f, 000.0f, 000.0f, 000.0f, 483.7f, 483.7f, 483.7f, 483.7f, 458.1f, 458.1f, 483.7f, 483.7f, 458.1f, 458.1f, 260.0f, 260.0f, 200.0f, 200.0f, 200.0f, 200.0f, 260.0f, 260.0f };
 float ztemp[pointnum] = { 200.0f, 200.0f, 000.0f, 000.0f, 000.0f, 200.0f, 200.0f, 000.0f, 200.0f, 200.0f, 200.0f, 200.0f, 000.0f, 000.0f, 000.0f, 000.0f, 050.0f, 050.0f, 050.0f, 050.0f, 000.0f, 000.0f, 000.0f, 000.0f };
 
+float Cal_Pol(int clie, int chang);
+void Perfect_planes(int maxmatrixl, int maxmatrixh, float **planes);
 int Write_Into_Txt(char* filename, bool writeflag);
-
+float maxmax(float temp1, float temp2, float temp3, float temp4);
+float minmin(float temp1, float temp2, float temp3, float temp4);
 int main()
 {
 	//char *a=NULL;
@@ -82,7 +86,7 @@ int main()
 	int plpoi_maxmin_num = 2;
 	int planepointnum = 4;//the number of points consituted a planes
 	int column = (planepointnum + plpoi_maxmin_num + pli_norm_num)*dimension + distance_origin_num;
-	int row = CountDataRow(filename);
+	int row = CountDataRow(filename);//13
 	const int basestationnum = 4;
 	datareadinfo datatxt(basestationnum,row,column);
 #ifdef debug
@@ -151,10 +155,110 @@ int main()
 		}
 		cout << endl;
 	}
+	cout << "maxmax" << maxmax(17.0f, 14.0f, 18.0f, 9.0f) << endl;
+	cout << "minmin" << minmin(12.0f, 14.0f, 13.0f, 8.0f) << endl;
 #endif // debug
+	Perfect_planes(row, column, datatxt.planes);
+	for (int i = 0; i < column; ++i)
+	{
+		for (int j = 0; j < row; ++j)
+		{
+			cout << datatxt.planes[i][j] << "\t";
+		}
+		cout << endl;
+	}
 
 	system("pause");
 	return 0; 
+}
+
+float maxmax(float temp1, float temp2, float temp3, float temp4)
+{
+	if (temp1 < temp2)
+		temp1 = temp2;
+	if (temp1 < temp3)
+		temp1 = temp3;
+	if (temp1 < temp4)
+		temp1 = temp4;
+	return temp1;
+}
+float minmin(float temp1, float temp2, float temp3, float temp4)
+{
+	if (temp1 > temp2)
+		temp1 = temp2;
+	if (temp1 > temp3)
+		temp1 = temp3;
+	if (temp1 > temp4)
+		temp1 = temp4;
+	return temp1;
+}
+
+void Perfect_planes(int maxmatrixl, int maxmatrixh,float **planes)
+{
+	for (int i = 0; i < maxmatrixl; ++i)
+	{
+		if (maxmatrixh==22)
+		{
+			float pli_x1 = planes[0][i];
+			float pli_y1 = planes[1][i];
+			float pli_z1 = planes[2][i];
+
+			float pli_x2 = planes[3][i];
+			float pli_y2 = planes[4][i];
+			float pli_z2 = planes[5][i];
+
+			float pli_x3 = planes[6][i];
+			float pli_y3 = planes[7][i];
+			float pli_z3 = planes[8][i];
+
+			float pli_x4 = planes[9][i];
+			float pli_y4 = planes[10][i];
+			float pli_z4 = planes[11][i];
+
+			float pli_norm_x =
+				(pli_y1 - pli_y2)*(pli_z1 + pli_z2) +
+				(pli_y2 - pli_y3)*(pli_z2 + pli_z3) +
+				(pli_y3 - pli_y1)*(pli_z3 + pli_z1);
+			float pli_norm_y =
+				(pli_z1 - pli_z2)*(pli_x1 + pli_x2) +
+				(pli_z2 - pli_z3)*(pli_x2 + pli_x3) +
+				(pli_z3 - pli_z1)*(pli_x3 + pli_x1);
+			float pli_norm_z =
+				(pli_x1 - pli_x2)*(pli_y1 + pli_y2) +
+				(pli_x2 - pli_x3)*(pli_y2 + pli_y3) +
+				(pli_x3 - pli_x1)*(pli_y3 + pli_y1);
+			
+			float mag_vec = (float)sqrt(pli_norm_x*pli_norm_x + pli_norm_y*pli_norm_y + pli_norm_z*pli_norm_z);
+			pli_norm_x = pli_norm_x / mag_vec;
+			pli_norm_y = pli_norm_y / mag_vec;
+			pli_norm_z = pli_norm_z / mag_vec;
+			float distance_origin = -(pli_x1*pli_norm_x + pli_y1*pli_norm_y + pli_z1*pli_norm_z);
+			
+			planes[12][i] = pli_norm_x;
+			planes[13][i] = pli_norm_y;
+			planes[14][i] = pli_norm_z;
+			planes[15][i] = distance_origin;
+
+			float xmax = maxmax(pli_x1, pli_x2, pli_x3, pli_x4);
+			float xmin = minmin(pli_x1, pli_x2, pli_x3, pli_x4);
+			float ymax = maxmax(pli_y1, pli_y2, pli_y3, pli_y4);
+			float ymin = minmin(pli_y1, pli_y2, pli_y3, pli_y4);
+			float zmax = maxmax(pli_z1, pli_z2, pli_z3, pli_z4);
+			float zmin = minmin(pli_z1, pli_z2, pli_z3, pli_z4);
+			planes[16][i] = xmin;
+			planes[17][i] = xmax;
+			planes[18][i] = ymin;
+			planes[19][i] = ymax;
+			planes[20][i] = zmin;
+			planes[21][i] = zmax;
+
+		} 
+		else if (maxmatrixh==2)
+		{
+		}
+		
+	}
+
 }
 int Write_Into_Txt(char* filename, bool writeflag)
 {
