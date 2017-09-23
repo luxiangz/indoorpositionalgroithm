@@ -35,5 +35,8 @@
     <ClInclude Include="datawritein.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MatSincplot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

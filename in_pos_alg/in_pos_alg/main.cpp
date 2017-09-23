@@ -6,6 +6,7 @@
 #include <string>
 #include <cmath>
 
+#include "MatSincplot.h"
 #include "stdlib.h"
 #include "file_operation.h"
 #include "datawritein.h"
@@ -159,15 +160,31 @@ int main()
 	cout << "minmin" << minmin(12.0f, 14.0f, 13.0f, 8.0f) << endl;
 #endif // debug
 	Perfect_planes(row, column, datatxt.planes);
-	for (int i = 0; i < column; ++i)
-	{
-		for (int j = 0; j < row; ++j)
-		{
-			cout << datatxt.planes[i][j] << "\t";
-		}
-		cout << endl;
-	}
 
+	//for (int i = 0; i < column; ++i)
+	//{
+	//	for (int j = 0; j < row; ++j)
+	//	{
+	//		cout << datatxt.planes[i][j] << "\t";
+	//	}
+	//	cout << endl;
+	//}
+	
+	//matlab测试程序
+	if (!mclInitializeApplication(NULL, 0))
+	{
+		cerr << "could not initialize the application properly" << endl;
+		return -1;
+	}
+	if (!MatSincplotInitialize())
+	{
+		cerr << "Could not initialize!" << endl;
+		return -1;
+	}
+	mwArray n(1, 1, mxINT16_CLASS);
+	int ntemp = 5;
+	n.SetData(&ntemp,1);
+	cout << "赋值的结果" << n(1, 1) << endl;
 	system("pause");
 	return 0; 
 }
