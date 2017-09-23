@@ -1,0 +1,8 @@
+LIBRARY sincplot
+EXPORTS
+sincplotInitialize
+sincplotInitializeWithHandlers
+sincplotTerminate
+sincplotPrintStackTrace
+mlxSincplot
+
