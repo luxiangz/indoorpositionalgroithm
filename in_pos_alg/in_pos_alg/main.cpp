@@ -159,6 +159,7 @@ int main()
 	cout << "minmin" << minmin(12.0f, 14.0f, 13.0f, 8.0f) << endl;
 #endif // debug
 	Perfect_planes(row, column, datatxt.planes);
+#ifdef debug
 	for (int i = 0; i < column; ++i)
 	{
 		for (int j = 0; j < row; ++j)
@@ -169,7 +170,10 @@ int main()
 	}
 
 	system("pause");
-	return 0; 
+	return 0;
+#endif // debug
+
+	
 }
 
 float maxmax(float temp1, float temp2, float temp3, float temp4)
