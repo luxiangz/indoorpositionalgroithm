@@ -1,0 +1,8 @@
+LIBRARY MatSincplot
+EXPORTS
+MatSincplotInitialize
+MatSincplotInitializeWithHandlers
+MatSincplotTerminate
+MatSincplotPrintStackTrace
+mlxSincplot
+

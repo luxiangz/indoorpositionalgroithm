@@ -65,7 +65,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ExecutablePath>H:\Program Files\MATLAB\R2017a\extern\include;H:\Program Files\MATLAB\R2017a\extern\include\win64;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>H:\Program Files\MATLAB\R2017a\extern\include\win64;H:\Program Files\MATLAB\R2017a\extern\include;H:\Program Files\MATLAB\R2017a\bin\win64;$(IncludePath)</IncludePath>
+    <LibraryPath>H:\Program Files\MATLAB\R2017a\extern\lib\win64\microsoft;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -86,6 +90,10 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+<<<<<<< HEAD
+=======
+      <AdditionalDependencies>libcovrt.lib;libemlrt.lib;libeng.lib;libfixedpoint.lib;libmat.lib;mclmcr.lib;mclmcrrt.lib;MatSincplot.lib;%(AdditionalDependencies)</AdditionalDependencies>
+>>>>>>> cd7668b9549c90b65c7c9701bb84fca83333389c
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="datawritein.h" />
     <ClInclude Include="file_operation.h" />
+    <ClInclude Include="MatSincplot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

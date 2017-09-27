@@ -1,0 +1,6 @@
+MatSincplotInitialize
+MatSincplotInitializeWithHandlers
+MatSincplotTerminate
+MatSincplotPrintStackTrace
+mlxSincplot
+
